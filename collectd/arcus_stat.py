@@ -186,6 +186,16 @@ def fetch_stat(host, port):
     stat = line.replace('\r\n', '').split(' ')
     result_stats[stat[1]] = stat[2]
 
+  # stats settings
+  s.sendall('stats settings\r\n')
+
+  while (1):
+    line = fp.readline()
+    if not line or 'END\r\n' == line:
+      break
+    stat = line.replace('\r\n', '').split(' ')
+    result_stats[stat[1]] = stat[2]
+
   # stats detail dump
   s.sendall('stats detail dump\r\n')
 
