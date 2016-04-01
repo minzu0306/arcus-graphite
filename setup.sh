@@ -19,13 +19,7 @@ function TEMPLATE
 CONFIG_FILES=(
   collectd/collectd-arcus.conf
   collectd/collectd-arcus-prefix.conf
-  collectd/collectd-listener-5s.conf
-  collectd/collectd-listener-1m.conf
   conf/conf-orbiter.json
-  conf/conf-rrd.json
-  conf/conf-view.json
-  lib/node_rrd/binding.gyp
-  view/modules/config.js
 )
 
 # Modify configurations
@@ -33,18 +27,6 @@ for file in ${CONFIG_FILES[@]}; do
   echo $file
   TEMPLATE $file
 done
-
-# Build node_rrd
-pushd lib/node_rrd
-rm -rf build
-rm -rf node_modules
-npm install .
-popd
-
-# Build hubble
-rm -rf node_modules
-npm install -g forever
-npm install
 
 # Copy collectd stuffs
 mkdir -p $COLLECTD_HOME/plugins/python
